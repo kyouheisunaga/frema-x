@@ -105,6 +105,16 @@
 |item_id    |integer|null: false, foreign_key: true|
 |user_id    |integer|null: false, foreign_key: true|
 
+t.text       :comment, null: false
+t.references :item,    foreign_key: true
+t.references :user,    foreign_key: true
+
+validates :comment, presence: true
+validates :item_id, presence: true
+validates :item_id, presence: true
+belongs_to :user
+belongs_to :item
+
 ### Association
 - belongs_to :user
 - belongs_to :item
@@ -129,7 +139,7 @@
 |description       |text|null: false|
 |price             |integer|null: false|
 |condition         |integer|null: false, enum|
-|brand_id          |integer|foreign_key: true|
+|brand_id          |integer|null: false, foreign_key: true|
 |category_id       |integer|null: false, foreign_key: true|
 |shipping_id       |integer|null: false, foreign_key: true|
 
@@ -153,6 +163,16 @@
 |status     |string|null: false|
 |item_id    |integer|null: false, foreign_key: true|
 |seller_id  |integer|null: false, foreign_key: true|
+
+t.string     :status, null: false
+t.references :item,   foreign_key: true
+t.references :seller, foreign_key: true
+
+belongs_to :item
+belongs_to :seller
+validates :status,    presence: true
+validates :item_id,   presence: true
+validates :seller_id, presence: true
 
 ### Association
 - belongs_to :item
@@ -194,6 +214,15 @@
 |shipping_area |string|null: false|
 |shipping_day  |string|null: false|
 |shipping_fee  |integer|null: false|
+
+t.string  :shipping_area, null: false
+t.string  :shipping_day,  null: false
+t.integer :shipping_fee,  null: false
+
+has_many :items
+validates :shipping_area, presence: true
+validates :shipping_day,  presence: true
+validates :shipping_fee,  presence: true
 
 ### Association
 - has_many :items
